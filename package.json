@@ -1,0 +1,46 @@
+{
+  "name": "@andrewscwei/super-error",
+  "version": "0.1.0",
+  "description": "Custom error for Node.js with additional properties",
+  "main": "build/index.js",
+  "scripts": {
+    "clean": "rimraf build",
+    "build": "npm run clean && tsc",
+    "test": "mocha --require dotenv/config --timeout 10000 --reporter spec --full-trace --colors --recursive --bail --exit $([ -z \"$npm_config_path\" ] && echo build/tests || echo $npm_config_path)",
+    "test:ts": "mocha -r ts-node/register --timeout 30000 --reporter spec --full-trace --colors --recursive --bail --exit \"src/**/*.spec.ts\"",
+    "lint": "tslint \"src/**/*.ts\" --project tsconfig.json",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sybl/node-super-error.git"
+  },
+  "keywords": [
+    "node",
+    "super",
+    "error"
+  ],
+  "author": "Andrew Wei <andrewscwei@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "build"
+  ],
+  "bugs": {
+    "url": "https://github.com/sybl/node-super-error/issues"
+  },
+  "homepage": "https://github.com/sybl/node-super-error#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/dotenv": "^6.1.0",
+    "@types/mocha": "^5.2.6",
+    "@types/serialize-error": "^2.1.0",
+    "dotenv": "^7.0.0",
+    "mocha": "^6.0.2",
+    "rimraf": "^2.6.3",
+    "serialize-error": "^4.0.0",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.4000"
+  },
+  "types": "build/index.d.ts"
+}
