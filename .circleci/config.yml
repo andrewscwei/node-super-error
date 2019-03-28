@@ -35,6 +35,7 @@ jobs:
             - build/
             - node_modules/
             - package.json
+            - tsconfig.json
   test:
     <<: *defaults
     steps:
