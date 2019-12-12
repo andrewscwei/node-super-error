@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe, it } from 'mocha';
-import serializeError from 'serialize-error';
+import { serializeError } from 'serialize-error';
 import { JsonObject } from 'type-fest';
 import { SuperError } from '..';
 
