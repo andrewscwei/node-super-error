@@ -1,6 +1,6 @@
 {
   "name": "@andrewscwei/super-error",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Custom error for Node.js with additional properties",
   "main": "build/index.js",
   "scripts": {
@@ -33,14 +33,14 @@
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/mocha": "^7.0.2",
-    "@types/node": "^13.11.0",
+    "@types/node": "^13.13.5",
     "@types/serialize-error": "^4.0.1",
     "dotenv": "^8.2.0",
-    "mocha": "^7.1.1",
+    "mocha": "^7.1.2",
     "rimraf": "^3.0.2",
-    "serialize-error": "^6.0.0",
-    "ts-node": "^8.8.2",
-    "tslint": "^6.1.1",
+    "serialize-error": "^7.0.0",
+    "ts-node": "^8.10.1",
+    "tslint": "^6.1.2",
     "typescript": "^3.8.3"
   },
   "types": "build/index.d.ts"
