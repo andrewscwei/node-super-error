@@ -1,4 +1,4 @@
-# node-super-error [![CircleCI](https://circleci.com/gh/andrewscwei/node-super-error.svg?style=svg)](https://circleci.com/gh/andrewscwei/node-super-error)
+# node-super-error [![CI](https://github.com/andrewscwei/node-super-error/workflows/CI/badge.svg)](https://github.com/andrewscwei/node-super-error/actions?query=workflow%3ACI) [![CD](https://github.com/andrewscwei/node-super-error/workflows/CD/badge.svg)](https://github.com/andrewscwei/node-super-error/actions?query=workflow%3ACD)
 
 Custom error for Node.js with additional properties:
 
