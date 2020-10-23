@@ -1,6 +1,6 @@
 {
   "name": "@andrewscwei/super-error",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Custom error for Node.js with additional properties",
   "main": "build/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "npm run clean && tsc",
     "test": "mocha --require dotenv/config --timeout 10000 --reporter spec --full-trace --colors --recursive --bail --exit $([ -z \"$npm_config_path\" ] && echo build/tests || echo $npm_config_path)",
     "test:ts": "mocha -r ts-node/register --timeout 30000 --reporter spec --full-trace --colors --recursive --bail --exit \"src/**/*.spec.ts\"",
-    "lint": "tslint \"src/**/*.ts\" --project tsconfig.json",
+    "lint": "eslint --ext .ts src",
     "lint:fix": "npm run lint -- --fix"
   },
   "repository": {
@@ -33,14 +33,16 @@
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/mocha": "^8.0.3",
-    "@types/node": "^14.11.8",
+    "@types/node": "^14.14.2",
     "@types/serialize-error": "^4.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
     "dotenv": "^8.2.0",
-    "mocha": "^8.1.3",
+    "eslint": "^7.11.0",
+    "mocha": "^8.2.0",
     "rimraf": "^3.0.2",
     "serialize-error": "^7.0.1",
     "ts-node": "^9.0.0",
-    "tslint": "^6.1.2",
     "typescript": "^4.0.3"
   },
   "types": "build/index.d.ts"
