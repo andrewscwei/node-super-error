@@ -1,6 +1,6 @@
 {
   "name": "@andrewscwei/super-error",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Custom error for Node.js with additional properties",
   "main": "build/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sybl/node-super-error.git"
+    "url": "git+https://github.com/andrewscwei/node-super-error.git"
   },
   "keywords": [
     "node",
@@ -26,9 +26,9 @@
     "build"
   ],
   "bugs": {
-    "url": "https://github.com/sybl/node-super-error/issues"
+    "url": "https://github.com/andrewscwei/node-super-error/issues"
   },
-  "homepage": "https://github.com/sybl/node-super-error#readme",
+  "homepage": "https://github.com/andrewscwei/node-super-error#readme",
   "dependencies": {},
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
