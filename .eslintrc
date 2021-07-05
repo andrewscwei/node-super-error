@@ -5,8 +5,7 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "sourceType": "module",
-    "project": "tsconfig.json"
+    "sourceType": "module"
   },
   "env": {
     "es6": true,
@@ -71,8 +70,7 @@
       "error",
       {
         "multiline": {
-          "delimiter": "semi",
-          "requireLast": true
+          "delimiter": "none"
         },
         "singleline": {
           "delimiter": "semi",
@@ -109,7 +107,7 @@
     ],
     "@typescript-eslint/semi": [
       "error",
-      "always"
+      "never"
     ],
     "@typescript-eslint/triple-slash-reference": [
       "error",
