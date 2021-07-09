@@ -1,6 +1,6 @@
 {
   "name": "@andrewscwei/super-error",
-  "version": "0.11.2",
+  "version": "0.12.0",
   "description": "Custom error for Node.js with additional properties",
   "main": "build/index.js",
   "scripts": {
@@ -29,12 +29,9 @@
     "url": "https://github.com/andrewscwei/node-super-error/issues"
   },
   "homepage": "https://github.com/andrewscwei/node-super-error#readme",
-  "dependencies": {},
   "devDependencies": {
-    "@types/dotenv": "^8.2.0",
-    "@types/mocha": "^8.2.2",
-    "@types/node": "^16.0.0",
-    "@types/serialize-error": "^4.0.1",
+    "@types/mocha": "^8.2.3",
+    "@types/node": "^16.3.0",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "dotenv": "^10.0.0",
