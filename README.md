@@ -1,4 +1,4 @@
-# node-super-error [![npm](https://img.shields.io/npm/v/node-super-error.svg)](https://www.npmjs.com/package/node-super-error) [![CI](https://github.com/andrewscwei/node-super-error/workflows/CI/badge.svg)](https://github.com/andrewscwei/node-super-error/actions?query=workflow%3ACI) [![CD](https://github.com/andrewscwei/node-super-error/workflows/CD/badge.svg)](https://github.com/andrewscwei/node-super-error/actions?query=workflow%3ACD)
+# node-super-error [![npm](https://img.shields.io/npm/v/@andrewscwei/super-error.svg)](https://www.npmjs.com/package/@andrewscwei/super-error) [![CI](https://github.com/andrewscwei/node-super-error/workflows/CI/badge.svg)](https://github.com/andrewscwei/node-super-error/actions?query=workflow%3ACI) [![CD](https://github.com/andrewscwei/node-super-error/workflows/CD/badge.svg)](https://github.com/andrewscwei/node-super-error/actions?query=workflow%3ACD)
 
 Custom error for Node.js with additional properties:
 
