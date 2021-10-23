@@ -1,6 +1,6 @@
 {
   "name": "@andrewscwei/super-error",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "Custom error for Node.js with additional properties",
   "main": "build/index.js",
   "scripts": {
@@ -30,17 +30,17 @@
   },
   "homepage": "https://github.com/andrewscwei/node-super-error#readme",
   "devDependencies": {
-    "@types/mocha": "^8.2.3",
-    "@types/node": "^16.3.0",
-    "@typescript-eslint/eslint-plugin": "^4.28.2",
-    "@typescript-eslint/parser": "^4.28.2",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.11.4",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
     "dotenv": "^10.0.0",
-    "eslint": "^7.30.0",
-    "mocha": "^9.0.2",
+    "eslint": "^8.1.0",
+    "mocha": "^9.1.3",
     "rimraf": "^3.0.2",
     "serialize-error": "^8.1.0",
-    "ts-node": "^10.0.0",
-    "typescript": "^4.3.5"
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
   },
   "types": "build/index.d.ts"
 }
