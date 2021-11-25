@@ -9,3 +9,25 @@ console.log(error.name); // 'SuperError'
 console.log(error.code); // 'FOO'
 console.log(error.info); // { foo: 'bar' }
 ```
+
+## Usage
+
+```sh
+# Install dependencies
+$ npm install
+
+# Build module
+$ npm run build
+
+# Run tests against src
+$ npm run test:ts
+
+# Run tests against src for specific file patterns (relative to /src)
+$ npm run test:ts --files="foo.ts"
+
+# Run tests again built files
+$ npm test
+
+# Run tests again built files for specific file patterns (relative to /build)
+$ npm test --files="foo.js"
+```

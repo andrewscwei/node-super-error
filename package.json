@@ -1,13 +1,13 @@
 {
   "name": "@andrewscwei/super-error",
-  "version": "0.14.0",
+  "version": "1.0.0",
   "description": "Custom error for Node.js with additional properties",
   "main": "build/index.js",
   "scripts": {
     "clean": "rimraf build",
     "build": "npm run clean && tsc",
-    "test": "mocha --require dotenv/config --timeout 10000 --reporter spec --full-trace --colors --recursive --bail --exit $([ -z \"$npm_config_path\" ] && echo build/tests || echo $npm_config_path)",
-    "test:ts": "mocha -r ts-node/register --timeout 30000 --reporter spec --full-trace --colors --recursive --bail --exit \"src/**/*.spec.ts\"",
+    "test": "npm run build -- --project tsconfig.test.json && mocha --timeout 30000 --reporter spec --full-trace --colors --recursive --bail --exit $([ -z \"$npm_config_files\" ] && echo \"build/**/*.spec.js\" || echo \"build/$npm_config_files\")",
+    "test:ts": "mocha -r ts-node/register --timeout 30000 --reporter spec --full-trace --colors --recursive --bail --exit $([ -z \"$npm_config_files\" ] && echo \"src/**/*.spec.ts\" || echo \"src/$npm_config_files\")",
     "lint": "eslint --ext .ts src",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -29,18 +29,19 @@
     "url": "https://github.com/andrewscwei/node-super-error/issues"
   },
   "homepage": "https://github.com/andrewscwei/node-super-error#readme",
+  "types": "build/index.d.ts",
   "devDependencies": {
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.11.4",
-    "@typescript-eslint/eslint-plugin": "^5.1.0",
-    "@typescript-eslint/parser": "^5.1.0",
-    "dotenv": "^10.0.0",
-    "eslint": "^8.1.0",
+    "@types/node": "^16.11.10",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "^8.3.0",
     "mocha": "^9.1.3",
     "rimraf": "^3.0.2",
-    "serialize-error": "^8.1.0",
     "ts-node": "^10.4.0",
-    "typescript": "^4.4.4"
+    "typescript": "^4.5.2"
   },
-  "types": "build/index.d.ts"
+  "dependencies": {
+    "serialize-error": "^8.1.0"
+  }
 }
