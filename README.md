@@ -3,11 +3,13 @@
 Custom error for Node.js with additional properties:
 
 ```ts
-const error = new SuperError('Hello, world!', 'FOO', { foo: 'bar' });
+const cause = new Error('Hello, another world!')
+const error = new SuperError('Hello, world!', 'FOO', { foo: 'bar' }, cause);
 
 console.log(error.name); // 'SuperError'
 console.log(error.code); // 'FOO'
 console.log(error.info); // { foo: 'bar' }
+console.log(error.cause); // cause
 ```
 
 ## Usage
