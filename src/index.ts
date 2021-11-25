@@ -92,7 +92,7 @@ export default class SuperError extends Error {
     const cause = ('cause' in error) && (error as any).cause ? this.deserialize((error as any).cause) : undefined
     const code: string | undefined = 'code' in error ? (error as any).code : undefined
     const info: { [key: string]: any } | undefined = 'info' in error && Object.prototype.toString.call((error as any).info) === '[object Object]' ? (error as any).info : undefined
-    const newError = new SuperError(error.message, code , info, cause)
+    const newError = new SuperError(error.message, code, info, cause)
     newError.stack = error.stack
     return newError
   }

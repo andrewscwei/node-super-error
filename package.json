@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "clean": "rimraf build",
+    "prebuild": "npm run lint",
     "build": "npm run clean && tsc",
     "test": "npm run build -- --project tsconfig.test.json && mocha --timeout 30000 --reporter spec --full-trace --colors --recursive --bail --exit $([ -z \"$npm_config_files\" ] && echo \"build/**/*.spec.js\" || echo \"build/$npm_config_files\")",
     "test:ts": "mocha -r ts-node/register --timeout 30000 --reporter spec --full-trace --colors --recursive --bail --exit $([ -z \"$npm_config_files\" ] && echo \"src/**/*.spec.ts\" || echo \"src/$npm_config_files\")",

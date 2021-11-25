@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, max-classes-per-file */
 
 import assert from 'assert'
 import { describe, it } from 'mocha'
