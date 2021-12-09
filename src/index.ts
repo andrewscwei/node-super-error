@@ -15,22 +15,22 @@ export type SuperErrorObject = ErrorObject & {
 }
 
 /**
- * Custom `Error` that has optional `code` and `info` properties.
+ * A serializable and extendable `Error` with optional `code`, `info` and `cause` properties.
  */
 export default class SuperError extends Error {
 
   /**
-   * Optional causative `Error`.
+   * An arbitrary causative `Error`.
    */
   readonly cause?: Error
 
   /**
-   * Custom error code.
+   * An arbitrary error code.
    */
   readonly code?: string
 
   /**
-   * Custom info object.
+   * A plain object containing arbitrary info.
    */
   readonly info?: { [key: string]: any }
 
@@ -54,7 +54,7 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Serializes a `SuperError` into a plain object.
+   * Serializes any `Error` into a plain object representing a `SuperError`.
    *
    * @param error - The `SuperError` to serialize.
    *
@@ -82,7 +82,7 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Instantiates a `SuperError` from an `Error` instance.
+   * Creates a `SuperError` from an `Error` instance.
    *
    * @param error - The `Error` instance.
    *
