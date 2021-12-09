@@ -4,7 +4,8 @@
  * directory of this source tree.
  */
 
-import { deserializeError, ErrorObject, serializeError } from 'serialize-error'
+import isPlainObject from 'is-plain-obj'
+import { ErrorObject, serializeError } from 'serialize-error'
 
 /**
  * A plain object type representing a `SuperError`.
@@ -15,14 +16,31 @@ export type SuperErrorObject = ErrorObject & {
 }
 
 /**
+ * Type guard function for checking if a value conforms to a `SuperErrorObject`.
+ *
+ * @param value - Any value.
+ *
+ * @returns `true` if the value conforms to a `SuperErrorObject`, `false` otherwise.
+ */
+export function typeIsSuperErrorObject(value: any): value is SuperErrorObject {
+  if (value === null || value === undefined) return false
+  if ('message' in value && typeof (value as any).message === 'string') return true
+  if ('code' in value && typeof (value as any).code === 'string') return true
+  if ('info' in value && isPlainObject((value as any).info)) return true
+  if ('cause' in value) return true
+  if ('stack' in value && typeof (value as any).stack === 'string') return true
+  return false
+}
+
+/**
  * A serializable and extendable `Error` with optional `code`, `info` and `cause` properties.
  */
 export default class SuperError extends Error {
 
   /**
-   * An arbitrary causative `Error`.
+   * An arbitrary cause of this error.
    */
-  readonly cause?: Error
+  readonly cause?: unknown
 
   /**
    * An arbitrary error code.
@@ -34,10 +52,10 @@ export default class SuperError extends Error {
    */
   readonly info?: { [key: string]: any }
 
-  constructor(message?: string, code?: string, info?: { [key: string]: any }, cause?: Error) {
+  constructor(message?: string, code?: string, info?: { [key: string]: any }, cause?: unknown) {
     super(message)
 
-    // HACK: Support proper Error subclassing when transpiling to ES5.
+    // HACK: Support proper `Error` subclassing when transpiling to ES5.
     const prototype = new.target.prototype
 
     if (Object.setPrototypeOf) {
@@ -66,34 +84,48 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Deserializes any value to an `Error` instance. If the value can be deserialized into a
-   * `SuperError`, the return type will be `SuperError` instead of `Error`.
+   * Deserializes any value to a `SuperError` instance. `SuperError`'s are cloned and returned, and
+   * `Error`'s are converted to `SuperError`'s. Plain objects are deserialized to match their keys
+   * to respective `SuperError` properties. Strings are wrapped as the message of a `SuperError` and
+   * numbers are wrapped as the code of a `SuperError`. Everything else are wrapped as the cause of
+   * a `SuperError`.
    *
    * @param value - Any value.
    *
-   * @returns An `Error` if the value can be deserialized, `undefined` otherwise.
+   * @returns The deserialized `SuperError`.
    */
-  static deserialize(value: any): Error | undefined {
-    if (value instanceof SuperError) return value
+  static deserialize(value: unknown): SuperError {
+    const deserialized = this.deserializeStrict(value)
 
-    const deserialized = deserializeError(value)
-
-    return (deserialized instanceof Error) ? this.from(deserialized) : undefined
+    if (deserialized instanceof SuperError) {
+      return deserialized
+    }
+    else if (typeof deserialized === 'string') {
+      return new SuperError(deserialized)
+    }
+    else if (typeof deserialized === 'number') {
+      return new SuperError(undefined, `${deserialized}`)
+    }
+    else {
+      return new SuperError(undefined, undefined, undefined, deserialized)
+    }
   }
 
   /**
-   * Creates a `SuperError` from an `Error` instance.
+   * Deserializes any value to a `SuperError` only if the value conforms to a `SuperErrorObject`. If
+   * not, the value is passed through.
    *
-   * @param error - The `Error` instance.
-   *
-   * @returns The `SuperError`.
+   * @param value - Any value
+   * @returns The deserialized `SuperError` if applicable, or the original value if not applicable.
    */
-  static from(error: Error): SuperError {
-    const cause = ('cause' in error) && (error as any).cause ? this.deserialize((error as any).cause) : undefined
-    const code: string | undefined = 'code' in error ? (error as any).code : undefined
-    const info: { [key: string]: any } | undefined = 'info' in error && Object.prototype.toString.call((error as any).info) === '[object Object]' ? (error as any).info : undefined
-    const newError = new SuperError(error.message, code, info, cause)
-    newError.stack = error.stack
-    return newError
+  private static deserializeStrict(value: unknown): unknown {
+    if (typeIsSuperErrorObject(value)) {
+      const newError = new SuperError(value.message, value.code, value.info, this.deserializeStrict(value.cause))
+      newError.stack = value.stack
+      return newError
+    }
+    else {
+      return value
+    }
   }
 }

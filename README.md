@@ -23,9 +23,9 @@ const deserialized = SuperError.deserialize(serialized) // A `SuperError` instan
 
 A serializable and extendable `Error` with optional `code`, `info` and `cause` properties.
 
-#### Property: `{Error}` `cause`
+#### Property: `{unknown}` `cause`
 
-An arbitrary causative `Error`.
+An arbitrary cause of this error.
 
 #### Property: `{string}` `code`
 
@@ -44,17 +44,10 @@ Serializes any `Error` into a plain object representing a `SuperError`.
 
 #### Method: `SuperError.deserialize(value)`
 
-Deserializes any value to an `Error` instance. If the value can be deserialized into a `SuperError`, the return type will be `SuperError` instead of `Error`.
+Deserializes any value to a `SuperError` instance. `SuperError`'s are passed through, and `Error`'s are converted to `SuperError`'s. Plain objects are deserialized to match their keys to respective `SuperError` properties. Strings are wrapped as the message of a `SuperError` and numbers are wrapped as the code of a `SuperError`. Everything else are wrapped as the cause of a `SuperError`.
 
-- `@param value: any` — Any value.
-- `@returns Error | undefined` — The deserialized `Error` if applicable, `undefined` otherwise.
-
-#### Method: `SuperError.from(error)`
-
-Creates a `SuperError` from an `Error` instance.
-
-- `@param error` — Any `Error`.
-- `@returns SuperError` — The created `SuperError`.
+- `@param value: unknown` — Any value.
+- `@returns SuperError` — The deserialized `SuperError`.
 
 ## Usage
 
