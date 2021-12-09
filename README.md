@@ -49,6 +49,10 @@ Deserializes any value to a `SuperError` instance. `SuperError`'s are passed thr
 - `@param value: unknown` — Any value.
 - `@returns SuperError` — The deserialized `SuperError`.
 
+#### Method: `SuperError.from(value)`
+
+This method is an alias of `SuperError.deserialize(value)`.
+
 ## Usage
 
 ```sh

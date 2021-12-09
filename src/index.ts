@@ -93,8 +93,40 @@ export default class SuperError extends Error {
    * @param value - Any value.
    *
    * @returns The deserialized `SuperError`.
+   *
+   * @alias SuperError.from
    */
   static deserialize(value: unknown): SuperError {
+    const deserialized = this.deserializeStrict(value)
+
+    if (deserialized instanceof SuperError) {
+      return deserialized
+    }
+    else if (typeof deserialized === 'string') {
+      return new SuperError(deserialized)
+    }
+    else if (typeof deserialized === 'number') {
+      return new SuperError(undefined, `${deserialized}`)
+    }
+    else {
+      return new SuperError(undefined, undefined, undefined, deserialized)
+    }
+  }
+
+  /**
+   * Converts any value to a `SuperError` instance. `SuperError`'s are cloned and returned, and
+   * `Error`'s are converted to `SuperError`'s. Plain objects are deserialized to match their keys
+   * to respective `SuperError` properties. Strings are wrapped as the message of a `SuperError` and
+   * numbers are wrapped as the code of a `SuperError`. Everything else are wrapped as the cause of
+   * a `SuperError`.
+   *
+   * @param value - Any value.
+   *
+   * @returns The `SuperError`.
+   *
+   * @alias SuperError.deserialize
+   */
+  static from(value: unknown): SuperError {
     const deserialized = this.deserializeStrict(value)
 
     if (deserialized instanceof SuperError) {
