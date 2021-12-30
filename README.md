@@ -1,4 +1,4 @@
-# node-super-error [![npm](https://img.shields.io/npm/v/@andrewscwei/super-error.svg)](https://www.npmjs.com/package/@andrewscwei/super-error) [![CI](https://github.com/andrewscwei/node-super-error/workflows/CI/badge.svg)](https://github.com/andrewscwei/node-super-error/actions?query=workflow%3ACI) [![CD](https://github.com/andrewscwei/node-super-error/workflows/CD/badge.svg)](https://github.com/andrewscwei/node-super-error/actions?query=workflow%3ACD)
+# node-super-error [![npm](https://img.shields.io/npm/v/@andrewscwei/super-error.svg)](https://www.npmjs.com/package/@andrewscwei/super-error) [![CI](https://github.com/andrewscwei/node-super-error/workflows/CI/badge.svg)](https://github.com/andrewscwei/node-super-error/actions/workflows/ci.yml) [![CD](https://github.com/andrewscwei/node-super-error/workflows/CD/badge.svg)](https://github.com/andrewscwei/node-super-error/actions/workflows/cd.yml)
 
 A serializable and extendable Node.js `Error` with optional `code`, `info` and `cause` properties.
 
@@ -37,14 +37,14 @@ A plain object containing arbitrary info.
 
 #### Method: `SuperError.serialize(error)`
 
-Serializes any `Error` into a plain object representing a `SuperError`.
+Serializes any error into a plain object representing a `SuperError`.
 
-- `@param value: Error` — Any `Error`.
+- `@param value: unknown` — Any error.
 - `@returns SuperErrorObject` — A plain object representing a `SuperError`.
 
 #### Method: `SuperError.deserialize(value)`
 
-Deserializes any value to a `SuperError` instance. `SuperError`'s are passed through, and `Error`'s are converted to `SuperError`'s. Plain objects are deserialized to match their keys to respective `SuperError` properties. Strings are wrapped as the message of a `SuperError` and numbers are wrapped as the code of a `SuperError`. Everything else are wrapped as the cause of a `SuperError`.
+Deserializes any value to a `SuperError` instance. `SuperError`s are passed through, and `Error`s are converted to `SuperError`s. Plain objects are deserialized to match their keys to respective `SuperError` properties. Strings are wrapped as the message of a `SuperError` and numbers are wrapped as the code of a `SuperError`. Everything else are wrapped as the cause of a `SuperError`.
 
 - `@param value: unknown` — Any value.
 - `@returns SuperError` — The deserialized `SuperError`.

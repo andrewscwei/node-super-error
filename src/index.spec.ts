@@ -2,7 +2,7 @@
 
 import assert from 'assert'
 import { describe, it } from 'mocha'
-import SuperError from '.'
+import SuperError from './index'
 
 describe('node-super-error', () => {
   it('SuperError extends Error properly', () => {

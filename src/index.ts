@@ -8,7 +8,7 @@ import isPlainObject from 'is-plain-obj'
 import { ErrorObject, serializeError } from 'serialize-error'
 
 /**
- * A plain object type representing a `SuperError`.
+ * A plain object type representing a {@link SuperError}.
  */
 export type SuperErrorObject = ErrorObject & {
   cause?: SuperErrorObject
@@ -16,11 +16,11 @@ export type SuperErrorObject = ErrorObject & {
 }
 
 /**
- * Type guard function for checking if a value conforms to a `SuperErrorObject`.
+ * Type guard function for checking if a value conforms to a {@link SuperErrorObject}.
  *
  * @param value - Any value.
  *
- * @returns `true` if the value conforms to a `SuperErrorObject`, `false` otherwise.
+ * @returns `true` if the value conforms to a {@link SuperErrorObject}, `false` otherwise.
  */
 export function typeIsSuperErrorObject(value: any): value is SuperErrorObject {
   if (value === null || value === undefined) return false
@@ -33,7 +33,7 @@ export function typeIsSuperErrorObject(value: any): value is SuperErrorObject {
 }
 
 /**
- * A serializable and extendable `Error` with optional `code`, `info` and `cause` properties.
+ * A serializable and extendable {@link Error} with optional `code`, `info` and `cause` properties.
  */
 export default class SuperError extends Error {
 
@@ -72,27 +72,27 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Serializes any `Error` into a plain object representing a `SuperError`.
+   * Serializes any error into a plain object representing a {@link SuperError}.
    *
-   * @param error - The `SuperError` to serialize.
+   * @param error - The error to serialize.
    *
    * @returns The plain object.
    */
-  static serialize(error: Error): SuperErrorObject {
+  static serialize(error: unknown): SuperErrorObject {
     const serialized = serializeError(error) as SuperErrorObject
     return serialized
   }
 
   /**
-   * Deserializes any value to a `SuperError` instance. `SuperError`'s are cloned and returned, and
-   * `Error`'s are converted to `SuperError`'s. Plain objects are deserialized to match their keys
-   * to respective `SuperError` properties. Strings are wrapped as the message of a `SuperError` and
-   * numbers are wrapped as the code of a `SuperError`. Everything else are wrapped as the cause of
-   * a `SuperError`.
+   * Deserializes any value to a {@link SuperError} instance. {@link SuperError}s are cloned and
+   * returned, and {@link Error}s are converted to {@link SuperError}s. Plain objects are
+   * deserialized to match their keys to respective {@link SuperError} properties. Strings are
+   * wrapped as the message of a {@link SuperError} and numbers are wrapped as the code of a
+   * {@link SuperError}. Everything else are wrapped as the cause of a {@link SuperError}.
    *
    * @param value - Any value.
    *
-   * @returns The deserialized `SuperError`.
+   * @returns The deserialized {@link SuperError}.
    *
    * @alias SuperError.from
    */
@@ -114,15 +114,15 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Converts any value to a `SuperError` instance. `SuperError`'s are cloned and returned, and
-   * `Error`'s are converted to `SuperError`'s. Plain objects are deserialized to match their keys
-   * to respective `SuperError` properties. Strings are wrapped as the message of a `SuperError` and
-   * numbers are wrapped as the code of a `SuperError`. Everything else are wrapped as the cause of
-   * a `SuperError`.
+   * Converts any value to a {@link SuperError} instance. {@link SuperError}s are cloned and
+   * returned, and {@link Error}s are converted to {@link SuperError}s. Plain objects are
+   * deserialized to match their keys to respective {@link SuperError} properties. Strings are
+   * wrapped as the message of a {@link SuperError} and numbers are wrapped as the code of a
+   * {@link SuperError}. Everything else are wrapped as the cause of a {@link SuperError}.
    *
    * @param value - Any value.
    *
-   * @returns The `SuperError`.
+   * @returns The {@link SuperError}.
    *
    * @alias SuperError.deserialize
    */
@@ -144,11 +144,13 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Deserializes any value to a `SuperError` only if the value conforms to a `SuperErrorObject`. If
-   * not, the value is passed through.
+   * Deserializes any value to a {@link SuperError} only if the value conforms to a
+   * {@link SuperErrorObject}. If not, the value is passed through.
    *
    * @param value - Any value
-   * @returns The deserialized `SuperError` if applicable, or the original value if not applicable.
+   *
+   * @returns The deserialized {@link SuperError} if applicable, or the original value if not
+   *          applicable.
    */
   private static deserializeStrict(value: unknown): unknown {
     if (typeIsSuperErrorObject(value)) {
