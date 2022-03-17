@@ -40,7 +40,7 @@ export default class SuperError extends Error {
   /**
    * An arbitrary cause of this error.
    */
-  readonly cause?: unknown
+  readonly cause?: Error
 
   /**
    * An arbitrary error code.
@@ -52,7 +52,7 @@ export default class SuperError extends Error {
    */
   readonly info?: { [key: string]: any }
 
-  constructor(message?: string, code?: string, info?: { [key: string]: any }, cause?: unknown) {
+  constructor(message?: string, code?: string, info?: { [key: string]: any }, cause?: Error) {
     super(message)
 
     // HACK: Support proper `Error` subclassing when transpiling to ES5.
@@ -97,19 +97,32 @@ export default class SuperError extends Error {
    * @alias SuperError.from
    */
   static deserialize(value: unknown): SuperError {
-    const deserialized = this.deserializeStrict(value)
-
-    if (deserialized instanceof SuperError) {
-      return deserialized
+    try {
+      return this.deserializeStrict(value)
     }
-    else if (typeof deserialized === 'string') {
-      return new SuperError(deserialized)
-    }
-    else if (typeof deserialized === 'number') {
-      return new SuperError(undefined, `${deserialized}`)
-    }
-    else {
-      return new SuperError(undefined, undefined, undefined, deserialized)
+    catch (err) {
+      if (value instanceof SuperError) {
+        const newError = new SuperError(value.message, value.code, value.info, value.cause)
+        newError.stack = value.stack
+        return value
+      }
+      else if (value instanceof Error) {
+        const newError = new SuperError(value.message, undefined, undefined, value.cause)
+        newError.stack = value.stack
+        return newError
+      }
+      else if (typeof value === 'string') {
+        return new SuperError(value)
+      }
+      else if (typeof value === 'number') {
+        return new SuperError(undefined, `${value}`)
+      }
+      else if (isPlainObject(value)) {
+        return new SuperError(undefined, undefined, value)
+      }
+      else {
+        return new SuperError()
+      }
     }
   }
 
@@ -127,39 +140,27 @@ export default class SuperError extends Error {
    * @alias SuperError.deserialize
    */
   static from(value: unknown): SuperError {
-    const deserialized = this.deserializeStrict(value)
-
-    if (deserialized instanceof SuperError) {
-      return deserialized
-    }
-    else if (typeof deserialized === 'string') {
-      return new SuperError(deserialized)
-    }
-    else if (typeof deserialized === 'number') {
-      return new SuperError(undefined, `${deserialized}`)
-    }
-    else {
-      return new SuperError(undefined, undefined, undefined, deserialized)
-    }
+    return this.deserialize(value)
   }
 
   /**
    * Deserializes any value to a {@link SuperError} only if the value conforms to a
-   * {@link SuperErrorObject}. If not, the value is passed through.
+   * {@link SuperErrorObject}. If not, a {@link TypeError} is thrown.
    *
    * @param value - Any value
    *
    * @returns The deserialized {@link SuperError} if applicable, or the original value if not
    *          applicable.
+   *
+   * @throws {TypeError} when unable to deserialize the value into a {@link SuperError}.
    */
-  private static deserializeStrict(value: unknown): unknown {
+  private static deserializeStrict(value: unknown): SuperError {
     if (typeIsSuperErrorObject(value)) {
       const newError = new SuperError(value.message, value.code, value.info, this.deserializeStrict(value.cause))
       newError.stack = value.stack
       return newError
     }
-    else {
-      return value
-    }
+
+    throw TypeError(`Unable to deserialize value <${JSON.stringify(value)}> to SuperError`)
   }
 }
