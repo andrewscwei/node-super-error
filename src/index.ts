@@ -156,7 +156,7 @@ export default class SuperError extends Error {
    */
   private static deserializeStrict(value: unknown): SuperError {
     if (typeIsSuperErrorObject(value)) {
-      const newError = new SuperError(value.message, value.code, value.info, this.deserializeStrict(value.cause))
+      const newError = new SuperError(value.message, value.code, value.info, value.cause && this.deserialize(value.cause))
       newError.stack = value.stack
       return newError
     }
