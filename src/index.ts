@@ -84,8 +84,8 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Deserializes any value to a {@link SuperError} instance. {@link SuperError}s are cloned and
-   * returned, and {@link Error}s are converted to {@link SuperError}s. Plain objects are
+   * Deserializes any value to a {@link SuperError} instance. {@link SuperError}s are passed
+   * through, and {@link Error}s are converted to {@link SuperError}s. Plain objects are
    * deserialized to match their keys to respective {@link SuperError} properties. Strings are
    * wrapped as the message of a {@link SuperError} and numbers are wrapped as the code of a
    * {@link SuperError}. Everything else are wrapped as the cause of a {@link SuperError}.
@@ -107,7 +107,7 @@ export default class SuperError extends Error {
         return value
       }
       else if (value instanceof Error) {
-        const newError = new SuperError(value.message, undefined, undefined, value.cause)
+        const newError = new SuperError(value.message, undefined, undefined, (value as any)['cause'])
         newError.stack = value.stack
         return newError
       }
@@ -145,7 +145,8 @@ export default class SuperError extends Error {
 
   /**
    * Deserializes any value to a {@link SuperError} only if the value conforms to a
-   * {@link SuperErrorObject}. If not, a {@link TypeError} is thrown.
+   * {@link SuperErrorObject}. If not, a {@link TypeError} is thrown. If the value is already a
+   * {@link SuperError}, it is simply passed through.
    *
    * @param value - Any value
    *
@@ -155,6 +156,8 @@ export default class SuperError extends Error {
    * @throws {TypeError} when unable to deserialize the value into a {@link SuperError}.
    */
   private static deserializeStrict(value: unknown): SuperError {
+    if (value instanceof SuperError) return value
+
     if (typeIsSuperErrorObject(value)) {
       const newError = new SuperError(value.message, value.code, value.info, value.cause && this.deserialize(value.cause))
       newError.stack = value.stack
@@ -162,5 +165,12 @@ export default class SuperError extends Error {
     }
 
     throw TypeError(`Unable to deserialize value <${JSON.stringify(value)}> to SuperError`)
+  }
+
+  /**
+   * @inheritdoc
+   */
+  toString(): string {
+    return `${this.name}${this.code === undefined ? '' : `[${this.code}]`}: ${this.message}`
   }
 }

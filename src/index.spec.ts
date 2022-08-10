@@ -96,13 +96,14 @@ describe('node-super-error', () => {
     console.log('Deserialized:', deserialized)
   })
 
-  it('can deserialize a SuperError subclass', () => {
+  it.only('can deserialize a SuperError subclass', () => {
     class FooError extends SuperError {}
     const error = new FooError('Hello, world!', 'foo', { foo: 'bar' })
     const serialized = FooError.serialize(error)
     const deserialized = FooError.deserialize(serialized)
     assert(deserialized instanceof Error)
     assert(deserialized instanceof SuperError)
+    console.log(FooError.deserialize(error).toString())
     console.log('Deserialized error:', deserialized)
   })
 })
