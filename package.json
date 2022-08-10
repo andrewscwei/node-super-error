@@ -9,7 +9,7 @@
     "prebuild": "npm run lint",
     "build": "npm run clean && tsc",
     "build:test": "npm run build -- --project tsconfig.test.json",
-    "test": "mocha -b -c --timeout 30000 --extension spec.js --recursive --exit \"build/$npm_config_files\"",
+    "test": "mocha -b -c --timeout 30000 -n experimental-specifier-resolution=node --extension spec.js --recursive --exit \"build/$npm_config_files\"",
     "test:ts": "mocha -r ts-node/register -n experimental-specifier-resolution=node -n loader=ts-node/esm -b -c --timeout 30000 --extension spec.ts --recursive --exit \"src/$npm_config_files\"",
     "lint": "eslint --ext .ts src",
     "lint:fix": "npm run lint -- --fix"

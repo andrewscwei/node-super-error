@@ -5,7 +5,7 @@ on:
     tags-ignore: ["v*"]
 jobs:
   build:
-    name: Build/Test
+    name: Build
     runs-on: ubuntu-latest
     container: node:17.5.0
     steps:
@@ -26,3 +26,14 @@ jobs:
         run: npm run build
       - name: Test
         run: npm run build:test && npm test
+  notify:
+    name: Notify
+    needs: [build]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: andrewscwei/telegram-action@v1.0.0
+        with:
+          success: ${{ needs.build.result == 'success' }}
+          bot-token: ${{ secrets.TELEGRAM_DEVOPS_BOT_TOKEN }}
+          chat-id: ${{ secrets.TELEGRAM_DEVOPS_CHAT_ID }}
