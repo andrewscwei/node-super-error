@@ -70,11 +70,10 @@ describe('node-super-error', () => {
     assert(serialized.info?.foo === 'bar')
     assert(serialized.stack)
     assert(serialized.cause)
-    assert(serialized.cause.name === SuperError.name)
-    assert(serialized.cause.code === 'bar')
-    assert(serialized.cause.info?.bar === 'baz')
-    assert(serialized.cause.stack)
-    console.log('Serialized error:', serialized)
+    assert((serialized.cause as any).name === SuperError.name)
+    assert((serialized.cause as any).code === 'bar')
+    assert((serialized.cause as any).info?.bar === 'baz')
+    assert((serialized.cause as any).stack)
   })
 
   it('can deserialize a SuperError', () => {
@@ -93,7 +92,7 @@ describe('node-super-error', () => {
     const deserialized = SuperError.deserialize(serialized)
     assert(deserialized instanceof Error)
     assert(deserialized instanceof SuperError)
-    console.log('Deserialized:', deserialized)
+    console.log('Deserialized error:', deserialized)
   })
 
   it('can deserialize a SuperError subclass', () => {
