@@ -144,11 +144,31 @@ export default class SuperError extends Error {
   }
 
   /**
+   * Flattens any value that can be deserialized to a {@link SuperError} into an array of {@link
+   * SuperError}s starting with the root error followed by each subsequent cause.
+   *
+   * @param value - Any value.
+   *
+   * @returns An array of {@link SuperError}s.
+   */
+  static flatten(value: unknown): SuperError[] {
+    let curr: SuperError | undefined = this.deserialize(value)
+    const errors: SuperError[] = []
+
+    while (curr !== undefined) {
+      errors.push(curr)
+      curr = curr.cause
+    }
+
+    return errors
+  }
+
+  /**
    * Deserializes any value to a {@link SuperError} only if the value conforms to a
    * {@link SuperErrorObject}. If not, a {@link TypeError} is thrown. If the value is already a
    * {@link SuperError}, it is simply passed through.
    *
-   * @param value - Any value
+   * @param value - Any value.
    *
    * @returns The deserialized {@link SuperError} if applicable, or the original value if not
    *          applicable.
