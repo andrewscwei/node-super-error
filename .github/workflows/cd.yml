@@ -8,12 +8,15 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    container: node:18.8.0
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
       - name: Cache Node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-build-npm-cache-${{ hashFiles('**/package-lock.json') }}
@@ -36,24 +39,37 @@ jobs:
     name: Deploy
     needs: [build]
     runs-on: ubuntu-latest
-    container: node:18.8.0
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
       - name: Restore build dir
         uses: actions/download-artifact@v1
         with:
           name: build
       - name: Create release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v6
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          body_path: RELEASE.md
-          draft: false
-          prerelease: false
+          github-token: ${{ secrets.github_token }}
+          script: |
+            const tag = process.env.GITHUB_REF.split('/').slice(-1)[0]
+            try {
+              await github.rest.repos.createRelease({
+                draft: false,
+                generate_release_notes: true,
+                name: tag,
+                owner: context.repo.owner,
+                prerelease: false,
+                repo: context.repo.repo,
+                tag_name: tag,
+              })
+            }
+            catch (error) {
+              core.setFailed(error.message)
+            }
       - name: Deploy to NPM
         run: .github/workflows/deploy_to_npm.sh
         env:
