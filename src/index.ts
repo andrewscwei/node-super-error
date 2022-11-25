@@ -35,6 +35,7 @@ export function typeIsSuperErrorObject(value: any): value is SuperErrorObject {
   if ('info' in value && isPlainObject((value as any).info)) return true
   if ('cause' in value) return true
   if ('stack' in value && typeof (value as any).stack === 'string') return true
+
   return false
 }
 
@@ -43,7 +44,6 @@ export function typeIsSuperErrorObject(value: any): value is SuperErrorObject {
  * `cause` properties.
  */
 export default class SuperError extends Error {
-
   /**
    * An arbitrary cause of this error.
    */
@@ -87,6 +87,7 @@ export default class SuperError extends Error {
    */
   static serialize(error: unknown): SuperErrorObject {
     const serialized = serializeError(error) as SuperErrorObject
+
     return serialized
   }
 
@@ -112,6 +113,7 @@ export default class SuperError extends Error {
     else if (value instanceof Error) {
       const newError = new SuperError(value.message, undefined, undefined, (value as any)['cause'])
       newError.stack = value.stack
+
       return newError
     }
     else if (typeof value === 'string') {
@@ -194,6 +196,7 @@ export default class SuperError extends Error {
       const message = (curr as any).message
       if (typeof message === 'string') return [...prev, message]
       if (includeNil === true && (message === undefined || message === null)) return [...prev, undefined]
+
       return prev
     }, [])
   }
@@ -217,6 +220,7 @@ export default class SuperError extends Error {
       const code = (curr as any).code
       if (typeof code === 'string') return [...prev, code]
       if (includeNil === true && (code === undefined || code === null)) return [...prev, undefined]
+
       return prev
     }, [])
   }
@@ -240,6 +244,7 @@ export default class SuperError extends Error {
       const info = (curr as any).info
       if (isPlainObject(info)) return [...prev, info]
       if (includeNil === true && (info === undefined || info === null)) return [...prev, undefined]
+
       return prev
     }, [])
   }
@@ -268,6 +273,7 @@ export default class SuperError extends Error {
 
       const newError = new SuperError(value.message, value.code, value.info, cause)
       newError.stack = value.stack
+
       return newError
     }
 
@@ -281,6 +287,7 @@ export default class SuperError extends Error {
    */
   clone(): SuperError {
     const copy = new (this.constructor as new (message?: string) => SuperError)(this.message)
+
     return Object.assign(copy, this)
   }
 
