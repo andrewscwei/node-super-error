@@ -1,7 +1,7 @@
 /** @license node-super-error
  * © Andrew Wei
- * This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the LICENSE file
+ * in the root directory of this source tree.
  */
 
 import isPlainObject from 'is-plain-obj'
@@ -25,7 +25,8 @@ export type SuperErrorObject = ErrorObject & {
  *
  * @param value - Any value.
  *
- * @returns `true` if the value conforms to a {@link SuperErrorObject}, `false` otherwise.
+ * @returns `true` if the value conforms to a {@link SuperErrorObject}, `false`
+ *          otherwise.
  */
 export function typeIsSuperErrorObject(value: any): value is SuperErrorObject {
   if (value === null || value === undefined) return false
@@ -38,7 +39,8 @@ export function typeIsSuperErrorObject(value: any): value is SuperErrorObject {
 }
 
 /**
- * A serializable and extendable {@link Error} with optional `code`, `info` and `cause` properties.
+ * A serializable and extendable {@link Error} with optional `code`, `info` and
+ * `cause` properties.
  */
 export default class SuperError extends Error {
 
@@ -89,11 +91,13 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Deserializes any value to a {@link SuperError} instance. {@link SuperError}s are passed
-   * through, and {@link Error}s are converted to {@link SuperError}s. Plain objects are
-   * deserialized to match their keys to respective {@link SuperError} properties. Strings are
-   * wrapped as the message of a {@link SuperError} and numbers are wrapped as the code of a
-   * {@link SuperError}. Everything else is wrapped as the cause of a {@link SuperError}.
+   * Deserializes any value to a {@link SuperError} instance.
+   * {@link SuperError}s are passed through, and {@link Error}s are converted to
+   * {@link SuperError}s. Plain objects are deserialized to match their keys to
+   * respective {@link SuperError} properties. Strings are wrapped as the
+   * message of a {@link SuperError} and numbers are wrapped as the code of a
+   * {@link SuperError}. Everything else is wrapped as the cause of a
+   * {@link SuperError}.
    *
    * @param value - Any value.
    *
@@ -132,11 +136,13 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Converts any value to a {@link SuperError} instance. {@link SuperError}s are cloned and
-   * returned, and {@link Error}s are converted to {@link SuperError}s. Plain objects are
-   * deserialized to match their keys to respective {@link SuperError} properties. Strings are
-   * wrapped as the message of a {@link SuperError} and numbers are wrapped as the code of a
-   * {@link SuperError}. Everything else is wrapped as the cause of a {@link SuperError}.
+   * Converts any value to a {@link SuperError} instance. {@link SuperError}s
+   * are cloned and returned, and {@link Error}s are converted to
+   * {@link SuperError}s. Plain objects are deserialized to match their keys to
+   * respective {@link SuperError} properties. Strings are wrapped as the
+   * message of a {@link SuperError} and numbers are wrapped as the code of a
+   * {@link SuperError}. Everything else is wrapped as the cause of a
+   * {@link SuperError}.
    *
    * @param value - Any value.
    *
@@ -149,8 +155,9 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Flattens any value that can be deserialized to a {@link SuperError} into an array of {@link
-   * SuperError}s, starting with the root error followed by each subsequent cause.
+   * Flattens any value that can be deserialized to a {@link SuperError} into an
+   * array of {@link SuperError}s, starting with the root error followed by each
+   * subsequent cause.
    *
    * @param value - Any value.
    *
@@ -169,13 +176,13 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Flattens any value that can be deserialized to a {@link SuperError} into an array of error
-   * messages, starting with the root error message followed by the error messages of each
-   * subsequent cause.
+   * Flattens any value that can be deserialized to a {@link SuperError} into an
+   * array of error messages, starting with the root error message followed by
+   * the error messages of each subsequent cause.
    *
    * @param value - Any value.
-   * @param options.includeNil - Specifies if nil messages should be included (by default they are
-   *                             dropped).
+   * @param options.includeNil - Specifies if nil messages should be included
+   *                             (by default they are dropped).
    *
    * @returns An array of error messages.
    */
@@ -192,12 +199,13 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Flattens any value that can be deserialized to a {@link SuperError} into an array of error
-   * codes, starting with the root error code followed by the error code of each subsequent cause.
+   * Flattens any value that can be deserialized to a {@link SuperError} into an
+   * array of error codes, starting with the root error code followed by the
+   * error code of each subsequent cause.
    *
    * @param value - Any value.
-   * @param options.includeNil - Specifies if nil codes should be included (by default they are
-   *                             dropped).
+   * @param options.includeNil - Specifies if nil codes should be included (by
+   *                             default they are dropped).
    *
    * @returns An array of error codes.
    */
@@ -214,12 +222,13 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Flattens any value that can be deserialized to a {@link SuperError} into an array of error
-   * info, starting with the root error info followed by the error info of each subsequent cause.
+   * Flattens any value that can be deserialized to a {@link SuperError} into an
+   * array of error info, starting with the root error info followed by the
+   * error info of each subsequent cause.
    *
    * @param value - Any value.
-   * @param options.includeNil - Specifies if nil info should be included (by default they are
-   *                             dropped).
+   * @param options.includeNil - Specifies if nil info should be included (by
+   *                             default they are dropped).
    *
    * @returns An array of error info.
    */
@@ -236,16 +245,17 @@ export default class SuperError extends Error {
   }
 
   /**
-   * Deserializes any value to a {@link SuperError} only if the value conforms to a
-   * {@link SuperErrorObject}. If not, a {@link TypeError} is thrown. If the value is already a
-   * {@link SuperError}, it is simply passed through.
+   * Deserializes any value to a {@link SuperError} only if the value conforms
+   * to a {@link SuperErrorObject}. If not, a {@link TypeError} is thrown. If
+   * the value is already a {@link SuperError}, it is simply passed through.
    *
    * @param value - Any value.
    *
-   * @returns The deserialized {@link SuperError} if applicable, or the original value if not
-   *          applicable.
+   * @returns The deserialized {@link SuperError} if applicable, or the original
+   *          value if not applicable.
    *
-   * @throws {TypeError} when unable to deserialize the value into a {@link SuperError}.
+   * @throws {TypeError} when unable to deserialize the value into a
+   *         {@link SuperError}.
    */
   private static deserializeStrict(value: unknown): SuperError {
     if (typeIsSuperErrorObject(value)) {
