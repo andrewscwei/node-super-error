@@ -3,7 +3,7 @@
 A serializable and extendable Node.js `Error` with optional `code`, `info` and `cause` properties.
 
 ```ts
-import SuperError from '@andrewscwei/super-error'
+import { SuperError } from '@andrewscwei/super-error'
 
 const cause = new Error('I am the cause')
 const error = new SuperError('I am the error', 'error-code', { some: 'info' }, cause)

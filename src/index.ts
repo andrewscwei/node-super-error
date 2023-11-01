@@ -43,7 +43,7 @@ export function typeIsSuperErrorObject(value: any): value is SuperErrorObject {
  * A serializable and extendable {@link Error} with optional `code`, `info` and
  * `cause` properties.
  */
-export default class SuperError extends Error {
+export class SuperError extends Error {
   /**
    * An arbitrary cause of this error.
    */
