@@ -63,10 +63,10 @@ $ npm install
 $ npm run build
 
 # Run tests against src
-$ npm run test:ts
+$ npm run test:unit
 
 # Run tests against src for specific file patterns (relative to /src)
-$ npm run test:ts --files="foo.ts"
+$ npm run test:unit --files="foo.ts"
 
 # Run tests again built files
 $ npm test
