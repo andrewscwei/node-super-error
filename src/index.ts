@@ -5,7 +5,7 @@
  */
 
 import isPlainObject from 'is-plain-obj'
-import { ErrorObject, serializeError } from 'serialize-error'
+import { serializeError, type ErrorObject } from 'serialize-error'
 
 /**
  * A plain object type representing the info property of a {@link SuperError}.

@@ -12,6 +12,9 @@
   "parserOptions": {
     "sourceType": "module"
   },
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "root": true,
   "rules": {
     "@typescript-eslint/array-type": [
@@ -38,13 +41,19 @@
     "@typescript-eslint/comma-spacing": [
       "error",
       {
-        "before": false,
-        "after": true
+        "after": true,
+        "before": false
       }
     ],
     "@typescript-eslint/consistent-generic-constructors": "error",
     "@typescript-eslint/consistent-indexed-object-style": "error",
     "@typescript-eslint/consistent-type-assertions": "error",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "fixStyle": "inline-type-imports"
+      }
+    ],
     "@typescript-eslint/default-param-last": "error",
     "@typescript-eslint/dot-notation": "off",
     "@typescript-eslint/explicit-member-accessibility": [
@@ -58,13 +67,6 @@
       "error",
       "never"
     ],
-    "@typescript-eslint/keyword-spacing": [
-      "error",
-      {
-        "before": true,
-        "after": true
-      }
-    ],
     "@typescript-eslint/indent": [
       "error",
       2,
@@ -73,6 +75,13 @@
       }
     ],
     "@typescript-eslint/init-declarations": "off",
+    "@typescript-eslint/keyword-spacing": [
+      "error",
+      {
+        "after": true,
+        "before": true
+      }
+    ],
     "@typescript-eslint/lines-between-class-members": "error",
     "@typescript-eslint/member-delimiter-style": [
       "error",
@@ -91,18 +100,14 @@
     "@typescript-eslint/naming-convention": [
       "error",
       {
-        "selector" : [
-          "enumMember"
-        ],
         "format": [
           "UPPER_CASE"
+        ],
+        "selector": [
+          "enumMember"
         ]
       },
       {
-        "selector": [
-          "variableLike",
-          "property"
-        ],
         "format": [
           "camelCase",
           "snake_case",
@@ -110,32 +115,42 @@
           "UPPER_CASE"
         ],
         "leadingUnderscore": "allowDouble",
+        "selector": [
+          "variableLike",
+          "property"
+        ],
         "trailingUnderscore": "allowDouble"
       },
       {
+        "format": [
+          "camelCase"
+        ],
         "selector": [
           "memberLike",
           "method"
-        ],
-        "format": [
-          "camelCase"
         ]
       },
       {
-        "selector": "typeLike",
         "format": [
           "PascalCase"
-        ]
+        ],
+        "selector": "typeLike"
       },
       {
-        "selector": [
-          "objectLiteralProperty",
-          "objectLiteralMethod"
-        ],
         "format": null,
         "modifiers": [
           "requiresQuotes"
+        ],
+        "selector": [
+          "objectLiteralProperty",
+          "objectLiteralMethod"
         ]
+      },
+      {
+        "format": null,
+        "leadingUnderscore": "allow",
+        "modifiers": ["unused"],
+        "selector": "parameter"
       }
     ],
     "@typescript-eslint/no-confusing-non-null-assertion": "error",
@@ -143,13 +158,7 @@
     "@typescript-eslint/no-duplicate-enum-values": "error",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-extra-parens": [
-      "error",
-      "all",
-      {
-        "ignoreJSX": "all"
-      }
-    ],
+    "@typescript-eslint/no-extra-parens": "off",
     "@typescript-eslint/no-invalid-this": "error",
     "@typescript-eslint/no-invalid-void-type": "error",
     "@typescript-eslint/no-misused-new": "error",
@@ -176,12 +185,12 @@
       "error",
       {
         "blankLine": "always",
-        "prev": "*",
-        "next": "return"
+        "next": "return",
+        "prev": "*"
       }
     ],
     "@typescript-eslint/prefer-function-type": "error",
-    "@typescript-eslint/prefer-optional-chain": "error",
+    "@typescript-eslint/prefer-optional-chain": "off",
     "@typescript-eslint/prefer-ts-expect-error": "error",
     "@typescript-eslint/quotes": [
       "error",
@@ -203,24 +212,24 @@
       "error",
       {
         "anonymous": "never",
-        "named": "never",
-        "asyncArrow": "always"
+        "asyncArrow": "always",
+        "named": "never"
       }
     ],
     "@typescript-eslint/space-infix-ops": "error",
     "@typescript-eslint/triple-slash-reference": [
       "error",
       {
+        "lib": "always",
         "path": "always",
-        "types": "prefer-import",
-        "lib": "always"
+        "types": "prefer-import"
       }
     ],
     "@typescript-eslint/type-annotation-spacing": [
       "error",
       {
-        "before": false,
         "after": true,
+        "before": false,
         "overrides": {
           "arrow": {
             "before": true
@@ -237,12 +246,12 @@
       "error",
       "never"
     ],
+    "array-callback-return": "error",
     "array-element-newline": [
       "error",
       "consistent"
     ],
-    "array-callback-return": "error",
-    "arrow-body-style": "error",
+    "arrow-body-style": "off",
     "arrow-parens": [
       "error",
       "as-needed"
@@ -250,8 +259,8 @@
     "arrow-spacing": [
       "error",
       {
-        "before": true,
-        "after": true
+        "after": true,
+        "before": true
       }
     ],
     "block-spacing": [
@@ -265,13 +274,7 @@
         "allowSingleLine": true
       }
     ],
-    "capitalized-comments": [
-      "warn",
-      "always",
-      {
-        "ignoreConsecutiveComments": true
-      }
-    ],
+    "capitalized-comments": "off",
     "comma-dangle": "off",
     "comma-spacing": "off",
     "comma-style": [
@@ -315,8 +318,8 @@
     "generator-star-spacing": [
       "error",
       {
-        "before": true,
-        "after": false
+        "after": false,
+        "before": true
       }
     ],
     "guard-for-in": "error",
@@ -343,8 +346,8 @@
     "key-spacing": [
       "error",
       {
-        "beforeColon": false,
         "afterColon": true,
+        "beforeColon": false,
         "mode": "strict"
       }
     ],
@@ -403,8 +406,8 @@
       "error",
       {
         "max": 1,
-        "maxEOF": 0,
-        "maxBOF": 0
+        "maxBOF": 0,
+        "maxEOF": 0
       }
     ],
     "no-nested-ternary": "off",
@@ -436,12 +439,12 @@
     "no-warning-comments": [
       "warn",
       {
+        "location": "start",
         "terms": [
           "todo",
           "fixme",
           "hack"
-        ],
-        "location": "start"
+        ]
       }
     ],
     "no-whitespace-before-property": "error",
@@ -480,8 +483,8 @@
     "semi-spacing": [
       "error",
       {
-        "before": false,
-        "after": true
+        "after": true,
+        "before": false
       }
     ],
     "semi-style": [

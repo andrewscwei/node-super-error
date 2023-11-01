@@ -10,7 +10,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "inlineSources": true,
-    "lib": ["es6"],
+    "lib": ["ESNext"],
     "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -23,13 +23,14 @@
     "sourceRoot": "/",
     "strict": true,
     "strictNullChecks": true,
-    "target": "es5"
+    "target": "ESNext"
   },
   "include": [
     "src/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts",
+    "**/*.test.ts",
     "node_modules",
     "build",
     "tests"
