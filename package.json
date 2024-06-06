@@ -6,11 +6,11 @@
   "type": "module",
   "scripts": {
     "clean": "rimraf build",
-    "prebuild": "npm run lint",
-    "build": "npm run clean && tsc",
-    "test": "npm run build -- --project tsconfig.test.json && mocha -b -c --timeout 30000 -n experimental-specifier-resolution=node --extension spec.js --recursive --exit \"build/$npm_config_files\"",
+    "prebuild": "npm run clean && npm run lint",
+    "build": "tsc",
+    "test": "npm run test:unit",
     "test:unit": "mocha -r ts-node/register -n experimental-specifier-resolution=node -n loader=ts-node/esm -b -c --timeout 30000 --extension spec.ts --recursive --exit \"src/$npm_config_files\"",
-    "lint": "eslint --ext .ts src",
+    "lint": "eslint",
     "lint:fix": "npm run lint -- --fix"
   },
   "repository": {
@@ -33,18 +33,22 @@
   "homepage": "https://github.com/andrewscwei/node-super-error#readme",
   "types": "build/index.d.ts",
   "devDependencies": {
-    "@types/mocha": "^10.0.3",
-    "@types/node": "^20.8.10",
-    "@typescript-eslint/eslint-plugin": "^6.9.1",
-    "@typescript-eslint/parser": "^6.9.1",
-    "eslint": "^8.52.0",
-    "mocha": "^10.2.0",
-    "rimraf": "^5.0.5",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "@eslint/js": "^9.4.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@stylistic/eslint-plugin": "^2.1.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.14.2",
+    "eslint": "^9.4.0",
+    "mocha": "^10.4.0",
+    "rimraf": "^5.0.7",
+    "semantic-release": "^24.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^8.0.0-alpha.10"
   },
   "dependencies": {
     "is-plain-obj": "^4.1.0",
-    "serialize-error": "^11.0.2"
+    "serialize-error": "^11.0.3"
   }
 }
