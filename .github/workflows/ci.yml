@@ -12,6 +12,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Build
         uses: andrewscwei/actions/node-build@v1
+        with:
+          prebuild-command: npm run test:unit
   notify:
     name: Notify
     needs: [build]

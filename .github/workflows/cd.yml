@@ -20,6 +20,7 @@ jobs:
         uses: andrewscwei/actions/node-build@v1
         with:
           artifact-path: build/
+          prebuild-command: npm run test:unit
   release:
     name: Release
     needs: [build]
