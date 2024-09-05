@@ -1,6 +1,6 @@
 {
   "name": "@andrewscwei/super-error",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Custom error for Node.js with additional properties",
   "main": "build/index.js",
   "type": "module",
