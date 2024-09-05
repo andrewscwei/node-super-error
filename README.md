@@ -3,18 +3,23 @@
 A serializable and extendable Node.js `Error` with optional `code`, `info` and `cause` properties.
 
 ```ts
-import { SuperError } from '@andrewscwei/super-error'
+import { SuperError } from "@andrewscwei/super-error";
 
-const cause = new Error('I am the cause')
-const error = new SuperError('I am the error', 'error-code', { some: 'info' }, cause)
+const cause = new Error("I am the cause");
+const error = new SuperError(
+  "I am the error",
+  "error-code",
+  { some: "info" },
+  cause
+);
 
-console.log(error.name) // 'SuperError'
-console.log(error.code) // 'error-code'
-console.log(error.info) // { some: 'info' }
-console.log(error.cause) // cause
+console.log(error.name); // 'SuperError'
+console.log(error.code); // 'error-code'
+console.log(error.info); // { some: 'info' }
+console.log(error.cause); // cause
 
-const serialized = SuperError.serialize(error) // { 'name': 'SuperError', 'code': 'error-code', 'info': { 'some': 'info' }, 'cause': { 'name': 'Error', 'message': 'I am the cause' }, 'stack': <error_stack> }
-const deserialized = SuperError.deserialize(serialized) // A `SuperError` instance equivalent to the initially created `error`.
+const serialized = SuperError.serialize(error); // { 'name': 'SuperError', 'code': 'error-code', 'info': { 'some': 'info' }, 'cause': { 'name': 'Error', 'message': 'I am the cause' }, 'stack': <error_stack> }
+const deserialized = SuperError.deserialize(serialized); // A `SuperError` instance equivalent to the initially created `error`.
 ```
 
 ## API
@@ -63,10 +68,10 @@ $ npm install
 $ npm run build
 
 # Run tests against src
-$ npm run test:unit
+$ npm run unit
 
 # Run tests against src for specific file patterns (relative to /src)
-$ npm run test:unit --files="foo.ts"
+$ npm run unit --files="foo.ts"
 
 # Run tests again built files
 $ npm test
